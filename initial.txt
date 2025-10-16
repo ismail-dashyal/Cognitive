@@ -1,0 +1,3 @@
+C:\cognitive_system
+
+venv\Scripts\activate
