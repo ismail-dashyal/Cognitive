@@ -1,0 +1,13 @@
+# Python ignores
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.log
+
+# Virtual environment
+venv/
+
+# IDE settings
+.vscode/
+.idea/
