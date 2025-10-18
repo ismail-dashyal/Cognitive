@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Employee Cognitive Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+body {
+  font-family: "Poppins", sans-serif;
+  background: #0f172a;
+  color: #f8fafc;
+  margin: 0;
+  padding: 0;
+}
+header {
+  text-align: center;
+  padding: 1.5rem;
+  background: #1e293b;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+header h1 {
+  margin: 0;
+  color: #38bdf8;
+}
+.container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  padding: 2rem;
+}
+.card {
+  background: #1e293b;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+.card h2 {
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+  color: #94a3b8;
+}
+.value {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #38bdf8;
+}
+.chart-section {
+  width: 90%;
+  margin: 2rem auto;
+  background: #1e293b;
+  padding: 1rem;
+  border-radius: 1rem;
+}
+footer {
+  text-align: center;
+  padding: 1rem;
+  color: #94a3b8;
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>🧠 Employee Cognitive Dashboard</h1>
+  <p>Real-time Monitoring of Stress • Fatigue • Attention</p>
+</header>
+
+<div class="container">
+  <div class="card">
+    <h2>Stress</h2>
+    <div class="value" id="stressVal">--</div>
+  </div>
+  <div class="card">
+    <h2>Fatigue</h2>
+    <div class="value" id="fatigueVal">--</div>
+  </div>
+  <div class="card">
+    <h2>Attention</h2>
+    <div class="value" id="attentionVal">--</div>
+  </div>
+</div>
+
+<section class="chart-section">
+  <canvas id="trendChart"></canvas>
+</section>
+
+<footer>
+  Last updated: <span id="timestamp">--:--</span>
+</footer>
+
+<script>
+const ctx = document.getElementById("trendChart").getContext("2d");
+
+const trendChart = new Chart(ctx, {
+  type: "line",
+  data: {
+    labels: [],
+    datasets: [
+      { label: "Stress", data: [], borderColor: "#ef4444", fill: false },
+      { label: "Fatigue", data: [], borderColor: "#facc15", fill: false },
+      { label: "Attention", data: [], borderColor: "#22c55e", fill: false }
+    ],
+  },
+  options: {
+    responsive: true,
+    scales: {
+      y: {
+        beginAtZero: true,
+        max: 1,
+        grid: { color: "#334155" },
+        ticks: { color: "#cbd5e1" }
+      },
+      x: {
+        grid: { color: "#334155" },
+        ticks: { color: "#cbd5e1" }
+      }
+    },
+    plugins: {
+      legend: {
+        labels: { color: "#f8fafc" }
+      }
+    }
+  }
+});
+
+async function fetchState() {
+  try {
+    const res = await fetch("/api/state");
+    const data = await res.json();
+    console.log("📊 Data received:", data);
+
+    if (!data || !data.time) return;
+
+    // Update numbers
+    document.getElementById("stressVal").textContent = (data.stress * 100).toFixed(0) + "%";
+    document.getElementById("fatigueVal").textContent = (data.fatigue * 100).toFixed(0) + "%";
+    document.getElementById("attentionVal").textContent = (data.attention * 100).toFixed(0) + "%";
+    document.getElementById("timestamp").textContent = data.time;
+
+    // Update chart
+    trendChart.data.labels.push(data.time);
+    trendChart.data.datasets[0].data.push(data.stress);
+    trendChart.data.datasets[1].data.push(data.fatigue);
+    trendChart.data.datasets[2].data.push(data.attention);
+
+    if (trendChart.data.labels.length > 15) {
+      trendChart.data.labels.shift();
+      trendChart.data.datasets.forEach(d => d.data.shift());
+    }
+
+    trendChart.update();
+
+  } catch (err) {
+    console.error("Error fetching:", err);
+  }
+}
+
+fetchState();             // First call immediately
+setInterval(fetchState, 60 * 1000);  // Every 1 minute
+</script>
+</body>
+</html>
