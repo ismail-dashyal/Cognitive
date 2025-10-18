@@ -1,13 +1,45 @@
-# Python ignores
+# ----------------------------
+# Python cache / build files
+# ----------------------------
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
 *.log
+*.tmp
+*.egg-info/
+dist/
+build/
 
+# ----------------------------
 # Virtual environment
+# ----------------------------
 venv/
 
-# IDE settings
+# ----------------------------
+# IDE / Editor configs
+# ----------------------------
 .vscode/
 .idea/
+*.swp
+
+# ----------------------------
+# App-specific temp / runtime data
+# ----------------------------
+# Temporary audio capture file
+input.wav
+
+# Real-time generated data (not versioned)
+realtime_data.json
+
+# Model weights or checkpoints (if added later)
+*.pth
+*.pt
+*.h5
+*.pkl
+
+# ----------------------------
+# OS-specific
+# ----------------------------
+.DS_Store
+Thumbs.db
