@@ -6,9 +6,10 @@ import json
 import os
 from flask import Flask, jsonify, send_file
 
-# import the real module names you provided
+# use the real module names you provided
 from face_module import get_face_emotion
 from voice_module import get_voice_emotion
+from fusion_module import compute_cognitive_state
 
 app = Flask(__name__, static_folder='.')
 
@@ -54,13 +55,13 @@ def collect_cycle():
         except Exception as e:
             print("❌ Voice capture error:", e)
 
-        # 3) Fusion (basic rule-based now; replace with fusion_module if available)
+        # 3) Fusion via fusion_module.compute_cognitive_state
         try:
-            # Basic rule-based fusion logic (keeps previous behaviour)
-            import random
-            stress = random.uniform(0.6, 1.0) if face_emotion in ["angry", "fear"] else random.uniform(0.2, 0.6)
-            fatigue = random.uniform(0.5, 0.9) if face_emotion in ["sad", "neutral"] else random.uniform(0.2, 0.5)
-            attention = max(0, min(1, 1 - (stress + fatigue) / 2))
+            print("🧠 Computing cognitive state via fusion_module...")
+            fused = compute_cognitive_state(face_emotion, voice_emotion)
+            stress = fused.get("stress", 0.0)
+            fatigue = fused.get("fatigue", 0.0)
+            attention = fused.get("attention", 0.0)
         except Exception as e:
             print("❌ Fusion error:", e)
             stress, fatigue, attention = 0.5, 0.5, 0.5

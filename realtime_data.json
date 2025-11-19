@@ -1,9 +1,9 @@
 {
-  "time": "00:24:08",
-  "face": "sad",
+  "time": "01:59:37",
+  "face": "neutral",
   "voice": "neu",
-  "stress": 0.27,
-  "fatigue": 0.66,
-  "attention": 0.53,
+  "stress": 0.3,
+  "fatigue": 0.58,
+  "attention": 0.56,
   "status": "active"
 }

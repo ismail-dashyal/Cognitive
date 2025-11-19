@@ -24,3 +24,11 @@
 {"time": "00:23:08", "face": "neutral", "voice": "hap", "stress": 0.22, "fatigue": 0.58, "attention": 0.6, "status": "active"}
 {"time": "00:23:53", "face": "neutral", "voice": "hap", "stress": 0.51, "fatigue": 0.54, "attention": 0.48, "status": "active"}
 {"time": "00:24:08", "face": "sad", "voice": "neu", "stress": 0.27, "fatigue": 0.66, "attention": 0.53, "status": "active"}
+{"time": "01:10:47", "face": "neutral", "voice": "neu", "stress": 0.3, "fatigue": 0.57, "attention": 0.56, "status": "active"}
+{"time": "01:11:02", "face": "neutral", "voice": "neu", "stress": 0.28, "fatigue": 0.6, "attention": 0.56, "status": "active"}
+{"time": "01:11:47", "face": "neutral", "voice": "neu", "stress": 0.59, "fatigue": 0.83, "attention": 0.29, "status": "active"}
+{"time": "01:12:02", "face": "sad", "voice": "hap", "stress": 0.33, "fatigue": 0.8, "attention": 0.43, "status": "active"}
+{"time": "01:12:47", "face": "sad", "voice": "neu", "stress": 0.32, "fatigue": 0.85, "attention": 0.42, "status": "active"}
+{"time": "01:13:02", "face": "neutral", "voice": "neu", "stress": 0.44, "fatigue": 0.56, "attention": 0.5, "status": "active"}
+{"time": "01:59:22", "face": "neutral", "voice": "neu", "stress": 0.37, "fatigue": 0.51, "attention": 0.56, "status": "active"}
+{"time": "01:59:37", "face": "neutral", "voice": "neu", "stress": 0.3, "fatigue": 0.58, "attention": 0.56, "status": "active"}
